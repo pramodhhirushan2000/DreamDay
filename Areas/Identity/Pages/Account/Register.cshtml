@@ -1,0 +1,88 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<style>
+    body {
+        background: url('/images/cover.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(2px);
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 500px;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+        @if (TempData["RegisterSuccess"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["RegisterSuccess"]
+            </div>
+        }
+        @if (TempData["RegisterError"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["RegisterError"]
+            </div>
+        }
+
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="password" />
+                <label asp-for="Input.Password">Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="password" />
+                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label d-block">Register As</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="Role" value="Couple" checked />
+                    <label class="form-check-label">Couple</label>
+                </div>
+                <div class="form-check form-check-inline ms-3">
+                    <input type="radio" class="form-check-input" name="Role" value="Planner" />
+                    <label class="form-check-label">Planner</label>
+                </div>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="btn btn-dark w-100">Register</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
