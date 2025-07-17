@@ -1,0 +1,98 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.navbar[b-osippqassv] {
+    border-bottom: none;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    background-color: white;
+}
+
+.navbar-nav[b-osippqassv] {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    list-style: none;
+}
+
+.navbar[b-osippqassv], .navbar a[b-osippqassv], .navbar-brand[b-osippqassv], .nav-link[b-osippqassv] {
+    font-family: 'Ariata Display';
+}
+
+.navbar-brand img[b-osippqassv] {
+    height: 50px; /* Adjust logo height */
+}
+
+a[b-osippqassv] {
+    color: #0077cc;
+}
+
+.btn-primary[b-osippqassv] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-osippqassv], .nav-pills .show > .nav-link[b-osippqassv] {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top[b-osippqassv] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-osippqassv] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-osippqassv] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-osippqassv] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-osippqassv] {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+.footer-content[b-osippqassv] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* for mobile responsiveness */
+}
+
+.footer-right a[b-osippqassv] {
+    color: #ccc;
+    font-size: 20px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.footer-right a:hover[b-osippqassv] {
+    color: white;
+}
+
+.footer-left[b-osippqassv] {
+    margin-top: 15px; 
+}
+
+.footer-left a[b-osippqassv] {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0px
+}
+
+.footer-left a:hover[b-osippqassv] {
+    text-decoration: underline;
+}
+
+
