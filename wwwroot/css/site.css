@@ -1,0 +1,735 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%; 
+  scroll-behavior: smooth;
+}
+
+body {
+    margin-bottom: 60px;
+    overflow-x: hidden;
+}
+
+body, main {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: 'Ariata Display';
+}
+
+.hero-section {
+    background: url('/images/gradient.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section h1 {
+    padding: 0px 10px 0px 10px;
+    font-family: 'IF Kica', sans-serif;
+    color: black;
+}
+
+.btn-primary {
+    background-color: #ff4ed2; 
+    color: white; 
+    font-weight: bold; 
+    border: none; 
+    border-radius: 999px; 
+    padding: 10px 25px; 
+    font-size: 16px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block;
+    cursor: pointer; 
+}
+
+.btn-primary:hover {
+    background-color: #e043bb; 
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:focus:active {
+    background-color: #ff4ed2;
+    color: white;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#testimonialCarousel .carousel-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 400px;
+}
+
+#testimonialCarousel p {
+    font-family: 'Ariata Display';
+    font-size: 18px;
+    color: black;
+}
+
+.user {
+    font-family: 'Aptos Display';
+    font-size: 28px; 
+    font-weight: bold; 
+    color: black;
+}
+
+.testhead {
+    font-family: Suntage;
+    color: black;
+}
+
+.location-text {
+    font-family: 'Arial', sans-serif; 
+    font-size: 14px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    text-align: center; 
+    color: black; 
+}
+
+.carousel-inner {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-item {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.65s ease;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 2;
+}
+
+/* Move Prev and Next closer to center */
+.carousel-control-prev {
+    left: 10px; 
+}
+
+.carousel-control-next {
+    right: 10px; 
+}
+
+/* Keep Bootstrap arrows, just color them black */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    width: 25px;
+    height: 25px;
+}
+
+.about-section {
+    width: 100%;
+    background-color: #a1cdf5; /* FULL blue background */
+    padding: 75px 0; /* Top and bottom space */
+    margin-bottom: -1rem;
+}
+
+.about-section h2 {
+    font-family: Suntage;
+    text-align: left;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.about-section p {
+    font-family: 'Ariata Display';
+    text-align: left;
+    font-size: 18px;
+    max-width: 600px;
+    margin-left: auto;
+}
+
+.features-section {
+    padding: 80px 0;
+    background-color: #FFDAB9; /* Light background */
+}
+
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.feature-card h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.feature-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.feature-card .btn-primary {
+    margin-bottom: 20px;
+}
+
+.feature-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: auto; /* Push image to bottom */
+}
+
+.pagination-container a {
+    margin: 0 10px;
+}
+
+.vendor-catalog-page {
+    background-color: #fff7e1;
+    padding: 10px 0;
+    margin-bottom: -1rem; 
+}
+
+.vendor-catalog-page h1{
+    font-family: 'IF Kica';
+}
+
+.vendor-catalog-page .card {
+  background: linear-gradient(to top, #ffd190, #ffffff); 
+  border: 2px solid #ffb347;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.vendor-catalog-page .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.vendor-catalog-page .hover-zone {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px; 
+  height: 100%;
+  z-index: 2;
+  cursor: pointer; 
+}
+
+.vendor-catalog-page .card-description {
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100%;
+  background-color: rgba(255, 247, 225, 0.95);
+  padding: 20px;
+  transition: right 0.4s ease;
+  display: flex;
+  align-items: center;
+  font-family: 'Ariata Display';
+  font-size: 16px;
+  color: black;
+  z-index: 1; /* Behind the hover zone */
+}
+
+/* Now use hover on .hover-zone to activate .card-description */
+.vendor-catalog-page .hover-zone:hover ~ .card-description {
+  right: 0;
+}
+.vendor-catalog-page .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+}
+
+.vendor-catalog-page .card-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.vendor-catalog-page .card-subtitle {
+  font-size: 16px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.vendor-catalog-page .card-text {
+  font-family: 'Arial', sans-serif; 
+  font-size: 16px;
+  color: black;
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+
+.vendor-catalog-page .card p {
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.vendor-catalog-page .card strong {
+  color: #444;
+}
+
+.vendor-catalog-page .btn-primary {
+  margin-top: 15px;
+}
+
+.vendor-catalog-page .pagination-container .btn{
+    background-color: #ee7a23;
+}
+
+/* Register page*/
+/* Full page gradient background */
+.register-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ffffff, #ffd190); /* White to Cream */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    margin-bottom: -2.5rem;
+}
+
+/* Card container */
+.register-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white */
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Heading styling */
+.register-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+}
+
+.register-page .btn-primary {
+    background-color: #ff9b42
+}
+
+.register-card .form-control {
+  border: none; /* Remove the gray border */
+  border-radius: 12px; /* Make corners more rounded */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: add soft glow */
+}
+
+.register-card .form-control:focus {
+  border: none; /* Still no border on focus */
+  box-shadow: 0 0 8px rgba(27, 110, 194, 0.5); /* Optional: blue glow when typing */
+}
+
+/* Login page */
+/* Full page gradient background */
+.login-page {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #ffffff, #ffd190); /* White to Cream */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    margin-bottom: -2.5rem;
+}
+
+/* Card container */
+.login-card {
+  background-color: rgba(255, 255, 255, 0.6); /* Transparent white */
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Heading styling */
+.login-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Inputs: no borders, rounded */
+.login-card .form-control {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-card .form-control:focus {
+  border: none;
+  box-shadow: 0 0 8px rgba(27, 110, 194, 0.5);
+}
+
+.login-page .btn-primary {
+    background-color: #ff9b42
+}
+
+.login-card .mt-3{
+    text-align: center;
+}
+
+/* Only dashboard page styles */
+.dashboard-page {
+    min-height: calc(100vh - 180px); /* Adjust to leave enough space for footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.dashboard-page .table-wrapper {
+    max-height: 400px; /* Scroll after ~5 rows */
+    overflow-y: auto;
+    width: 100%;
+}
+
+.dashboard-page .table th,
+.dashboard-page .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Optional: nice scrollbar */
+.dashboard-page .table-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dashboard-page .table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+/* Chceklist page */
+/* Checklist Page Only */
+.checklist-page {
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px; /* tighter space */
+    padding-bottom: 40px;
+}
+
+.checklist-title {
+    margin-bottom: 10px; /* reduce title bottom margin */
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+}
+
+.checklist-page .btn-secondary{
+    background-color: lightslategrey; 
+}
+
+.table-buttons {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+/* Table */
+.checklist-page .table-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.checklist-page .table th,
+.checklist-page .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Sticky Table Header */
+.sticky-header th {
+    position: sticky;
+    top: 0;
+    background-color: black; /* Dark background to match table-dark */
+    color: white;
+    z-index: 2;
+}
+
+/* Optional: scrollbar */
+.checklist-page .table-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.checklist-page .table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+/* Couple Dashboard Page General */
+.couple-dashboard-page {
+    min-height: calc(100vh - 180px);
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Title */
+.couple-dashboard-page .dashboard-title {
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Overview + Messaging Big Card */
+.couple-dashboard-page .overview-card {
+    background: linear-gradient(to bottom right, #f9f9f9, #ffe6e6);
+    border: none;
+    border-radius: 16px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.couple-dashboard-page .overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Feature small cards */
+.couple-dashboard-page .feature-card {
+    background: linear-gradient(to bottom right, #ffffff, #fff0e1);
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.couple-dashboard-page .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Uniform height button inside feature cards */
+.couple-dashboard-page .feature-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.couple-dashboard-page .feature-card .button-container {
+    margin-top: auto;
+}
+
+/* Cream button */
+.btn-cream {
+    background-color: #ffe6b3;
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cream:hover {
+    background-color: #ffcc66;
+    color: black;
+}
+
+/* Envelope Button */
+.message-toggle-btn {
+    background-color: #ffe6b3;
+    border: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 22px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .message-toggle-btn:hover {
+        background-color: #ffcc66;
+        transform: translateY(-2px);
+    }
+
+/* Inner Message Panel */
+.message-card-inner {
+    background: linear-gradient(to bottom right, #ffffff, #fff0e1);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Message List Box */
+.message-list {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Message Form */
+#messageContent {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Guest Management Page Specific */
+/* Layout fix for Guest Management */
+.guest-management-page {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 160px); /* adjust if your header is larger */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Push table to fill height */
+.guest-management-page table {
+    flex: 1 0 auto;
+}
+
+.guest-management-page .btn-assign {
+    background-color: #ffe6b3;
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.guest-management-page .btn-assign:hover {
+    background-color: #ffcc66;
+    color: black;
+}
+
+.wedding-info-card {
+    background: linear-gradient(to bottom right, #f9f9f9, #ffe6e6);
+    border-radius: 16px;
+    border: none;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wedding-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Admin Dashboard Page Specific */
+.admin-dashboard-page {
+    min-height: calc(100vh - 160px); /* Adjust for header/footer height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Optional: Style the admin cards to match other pages */
+.admin-dashboard-page .card {
+    background: linear-gradient(to bottom right, #ffffff, #fff0e1);
+    border: none;
+    border-radius: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-dashboard-page .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Optional: Consistent button styles */
+.admin-dashboard-page .btn-primary {
+    background-color: #ffe6b3;
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.admin-dashboard-page .btn-primary:hover {
+    background-color: #ffcc66;
+    color: black;
+}
