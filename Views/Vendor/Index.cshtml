@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DreamDay.Models.Vendor>
+
+@{
+    ViewData["Title"] = "Vendor Catalog";
+    var categories = ViewBag.Categories as List<string>;
+    var selectedCategory = ViewBag.SelectedCategory as string;
+}
+<div class="vendor-catalog-page bg-light py-5">
+    <div class="container">
+        <h1 class="text-center mb-4 display-5">Explore Vendors</h1>
+
+        <!-- Category Filter -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <form method="get" asp-action="Index" asp-controller="Vendor">
+                    <div class="input-group">
+                        <label class="input-group-text" for="categorySelect">Category</label>
+                        <select id="categorySelect" name="category" class="form-select" onchange="this.form.submit()">
+                            <option value="">All Categories</option>
+                            @foreach (var cat in categories)
+                            {
+                                <option value="@cat" selected="@(cat == selectedCategory ? "selected" : null)">
+                                    @cat
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Vendor Table -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle bg-white shadow-sm rounded">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Starting Price</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Reviews</th>
+                        <th scope="col">Available From</th>
+                        <th scope="col">Available To</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vendor in Model)
+                    {
+                        <tr>
+                            <td><strong>@vendor.Name</strong></td>
+                            <td>@vendor.Category</td>
+                            <td>@vendor.Description</td>
+                            <td class="text-success fw-bold">$@vendor.PriceStartingFrom.ToString("F2")</td>
+                            <td>@vendor.ServicesOffered</td>
+                            <td>@vendor.Reviews</td>
+                            <td>@(vendor.AvailableFrom?.ToString("yyyy-MM-dd") ?? "N/A")</td>
+                            <td>@(vendor.AvailableTo?.ToString("yyyy-MM-dd") ?? "N/A")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            @{
+                var totalPages = (int)Math.Ceiling((double)ViewBag.TotalVendors / ViewBag.PageSize);
+            }
+
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <a class="btn btn-outline-primary me-2" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1, category = ViewBag.SelectedCategory })">
+                    &laquo; Previous
+                </a>
+            }
+
+            @if (ViewBag.CurrentPage < totalPages)
+            {
+                <a class="btn btn-outline-primary" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1, category = ViewBag.SelectedCategory })">
+                    Next &raquo;
+                </a>
+            }
+        </div>
+    </div>
+</div>

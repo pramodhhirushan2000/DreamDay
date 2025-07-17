@@ -1,0 +1,83 @@
+﻿@model DreamDay.Models.Guest
+@{
+    ViewData["Title"] = "Add New Guest";
+    var tables = ViewBag.Tables as List<DreamDay.Models.WeddingTable>;
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Add New Guest</h1>
+
+    @using (Html.BeginForm("Create", "GuestManagement", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="WeddingId" value="@ViewBag.WeddingId" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="RSVPStatus" class="form-label">RSVP Status</label>
+            <select asp-for="RSVPStatus" class="form-select">
+                <option value="Pending">Pending</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Declined">Declined</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MealPreference" class="form-label">Meal Preference</label>
+            <input asp-for="MealPreference" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="TableId" class="form-label">Table</label>
+            <select asp-for="TableId" id="tableSelect" class="form-select" onchange="loadAvailableSeats()" required>
+                <option value="">Select Table</option>
+                @foreach (var table in tables)
+                {
+                    <option value="@table.TableId">@table.TableName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SeatNumber" class="form-label">Seat Number</label>
+            <select asp-for="SeatNumber" id="seatNumberSelect" class="form-select" required>
+                <option value="">Select Seat</option>
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-dark">Add Guest</button>
+            <a href="/GuestManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+      }
+</div>
+
+@section Scripts {
+    <script>
+        function loadAvailableSeats() {
+            const tableId = document.getElementById("tableSelect").value;
+            const seatDropdown = document.getElementById("seatNumberSelect");
+
+            seatDropdown.innerHTML = '<option>Loading...</option>';
+
+            fetch(`/GuestManagement/GetAvailableSeats?tableId=${tableId}`)
+                .then(res => res.json())
+                .then(data => {
+                    seatDropdown.innerHTML = '<option value="">Select Seat</option>';
+                    data.forEach(seat => {
+                        seatDropdown.innerHTML += `<option value="${seat}">${seat}</option>`;
+                    });
+                });
+        }
+    </script>
+}

@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<div class="container-fluid text-center py-5"
+     style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/cover.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;">
+
+    <h3 class="display-3 fw-bold mb-3" style="font-family: 'Georgia', serif; color: white;">Welcome to DreamDay Wedding Planners</h3>
+    <p class="lead mb-4" style="font-size: 1.5rem;">Your perfect day, planned to perfection.</p>
+
+    <a href="#services" class="btn btn-outline-light btn-lg rounded-pill shadow-sm px-4 py-2">
+        <i class="bi bi-arrow-down-circle"></i> Explore Our Services
+    </a>
+</div>
+
+
+<!-- Services Section -->
+<div class="container py-5" id="services">
+    <h2 class="text-center mb-4" style="font-family: 'Georgia', serif;">Our Services</h2>
+    <div class="row text-center g-4">
+        <div class="col-md-3">
+            <div class="card shadow h-100 border-0 rounded-lg">
+                <img src="~/images/venue1.jpg" class="card-img-top rounded-top" alt="Venue Selection">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Venue Selection</h5>
+                    <p class="card-text">We offer a wide range of venue options to make your wedding day unforgettable.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow h-100 border-0 rounded-lg">
+                <img src="~/images/caterin.jpg" class="card-img-top rounded-top" alt="Catering Services">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Catering Services</h5>
+                    <p class="card-text">Delicious and diverse catering options to suit every taste and preference.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow h-100 border-0 rounded-lg">
+                <img src="~/images/photographer.jpg" class="card-img-top rounded-top" alt="Photography">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Photography</h5>
+                    <p class="card-text">Capture every moment with our professional photography services.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow h-100 border-0 rounded-lg">
+                <img src="~/images/florist.jpg" class="card-img-top rounded-top" alt="Florist Services">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Florist Services</h5>
+                    <p class="card-text">Beautiful floral arrangements to enhance your wedding decor and ambiance.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container text-center py-5">
+    <h2 style="font-family: 'Georgia', serif;">Start Planning Your Dream Wedding Today</h2>
+    <p>Contact us for a free consultation and let us bring your wedding vision to life.</p>
+    <a href="#contact" class="btn btn-dark btn-m rounded-pill shadow">Get Started</a>
+</div>
+
+
+<!-- Contact Form -->
+<div class="container py-5" id="contact">
+    <h3 class="text-center mb-3" style="font-family: 'Georgia', serif;">Contact Us</h3>
+    <p class="text-center">Have any questions or ready to book? Reach out to us!</p>
+    <form>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control rounded-pill" id="name" placeholder="Your Name" required />
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control rounded-pill" id="email" placeholder="Your Email" required />
+            </div>
+            <div class="col-12">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control rounded" id="message" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-dark btn-m rounded-pill mt-3">Send Message</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Smooth Scrolling Script -->
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>

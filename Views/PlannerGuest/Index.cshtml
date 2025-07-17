@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DreamDay.Models.Guest>
+
+@{
+    ViewData["Title"] = "Planner Manage Guests";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Guest List</h1>
+
+    <a class="btn btn-secondary mb-3" href="/PlannerDashboard">Back to Dashboard</a>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No guests available.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>RSVP Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var guest in Model)
+                {
+                    <tr>
+                        <td>@guest.Name</td>
+                        <td>@guest.Email</td>
+                        <td>@guest.RSVPStatus</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

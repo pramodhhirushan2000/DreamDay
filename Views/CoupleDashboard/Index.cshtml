@@ -1,0 +1,167 @@
+﻿@model DreamDay.Models.ViewModels.CoupleDashboardViewModel
+@{
+    ViewData["Title"] = "Couple Dashboard";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Welcome to Your Wedding Dashboard</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center">@TempData["SuccessMessage"]</div>
+    }
+
+    <!-- Wedding Overview -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Wedding Overview</h4>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-outline-dark" data-bs-toggle="collapse" data-bs-target="#overviewPanel" title="Edit Overview">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-outline-dark" data-bs-toggle="collapse" data-bs-target="#addOverviewPanel" title="Add Overview">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model.Wedding == null)
+            {
+                <p class="text-danger">No wedding information found. Please contact support.</p>
+            }
+            else
+            {
+                <ul class="list-unstyled mb-0">
+                    <li><strong>Title:</strong> @Model.Wedding.Title</li>
+                    <li><strong>Date:</strong> @Model.Wedding.WeddingDate.ToShortDateString()</li>
+                    <li><strong>Venue:</strong> @Model.Wedding.Venue</li>
+                </ul>
+            }
+        </div>
+    </div>
+
+    <!-- Edit / Add Overview Panel -->
+    <div class="collapse border-top p-3" id="overviewPanel">
+        <h5 class="text-center">Edit Wedding Overview</h5>
+        <form method="post" asp-controller="CoupleDashboard" asp-action="UpdateOverview">
+            <input type="hidden" name="WeddingId" value="@Model.Wedding?.WeddingId" />
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input class="form-control" name="Title" value="@Model.Wedding?.Title" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input class="form-control" type="date" name="WeddingDate" value="@Model.Wedding?.WeddingDate.ToString("yyyy-MM-dd")" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Venue</label>
+                <input class="form-control" name="Venue" value="@Model.Wedding?.Venue" required />
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Save</button>
+        </form>
+    </div>
+
+    <div class="collapse border-top p-3" id="addOverviewPanel">
+        <h5 class="text-center">Create Wedding Overview</h5>
+        <form method="post" asp-controller="CoupleDashboard" asp-action="AddOverview">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input class="form-control" name="Title" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Date</label>
+                <input class="form-control" type="date" name="WeddingDate" required />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Venue</label>
+                <input class="form-control" name="Venue" required />
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Add</button>
+        </form>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5>Checklist Progress</h5>
+                    <p>@Model.CompletedTasks / @Model.TotalTasks Tasks Completed</p>
+                    <a href="/ChecklistManagement" class="btn btn-outline-primary w-100 mt-3">View Checklist</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5>Guest Summary</h5>
+                    <p>@Model.TotalGuests Invited<br>@Model.AcceptedGuests Accepted</p>
+                    <a href="/GuestManagement" class="btn btn-outline-primary w-100 mt-3">Manage Guests</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5>Budget Summary</h5>
+                    <p>Estimated: $@Model.EstimatedBudget<br>Actual: $@Model.ActualBudget</p>
+                    <a href="/BudgetManagement" class="btn btn-outline-primary w-100 mt-3">Manage Budget</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5>Timeline Events</h5>
+                    <p>Track and plan your big day’s timeline.</p>
+                    <a href="/Timeline" class="btn btn-outline-primary w-100 mt-3">Manage Timeline</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function loadMessages() {
+            const weddingId = @((Model.Wedding != null) ? Model.Wedding.WeddingId.ToString() : "null");
+            if (weddingId === "null") return;
+            const response = await fetch('/CoupleDashboard/GetMessages?weddingId=' + weddingId);
+            const messages = await response.json();
+            const list = document.getElementById('messageList');
+            list.innerHTML = '';
+            messages.forEach(m => {
+                const div = document.createElement('div');
+                div.classList.add('mb-2');
+                div.innerHTML = `<strong>${m.senderEmail}:</strong> ${m.content}<br><small class="text-muted">${m.sentTime}</small>`;
+                list.appendChild(div);
+            });
+        }
+
+        async function sendMessage(event) {
+            event.preventDefault();
+            const content = document.getElementById('messageContent').value;
+            const weddingId = @((Model.Wedding != null) ? Model.Wedding.WeddingId.ToString() : "null");
+            if (weddingId === "null") return;
+
+            const response = await fetch('/CoupleDashboard/SendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ weddingId, content })
+            });
+
+            if (response.ok) {
+                document.getElementById('messageContent').value = '';
+                loadMessages();
+            }
+        }
+
+        // Load messages when message panel opens
+        document.addEventListener('DOMContentLoaded', () => {
+            const messagePanel = document.getElementById('messagePanel');
+            messagePanel.addEventListener('show.bs.collapse', loadMessages);
+        });
+    </script>
+}
+

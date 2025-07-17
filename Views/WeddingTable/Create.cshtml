@@ -1,0 +1,26 @@
+﻿@model DreamDay.Models.WeddingTable
+
+@{
+    ViewData["Title"] = "Add New Table";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Add New Table</h1>
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="WeddingId" value="@ViewBag.WeddingId" />
+
+        <div class="mb-3">
+            <label asp-for="TableName" class="form-label">Table Name</label>
+            <input asp-for="TableName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="MaxSeats" class="form-label">Max Seats</label>
+            <input asp-for="MaxSeats" class="form-control" type="number" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="/WeddingTable" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

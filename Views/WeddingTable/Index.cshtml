@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DreamDay.Models.WeddingTable>
+
+@{
+    ViewData["Title"] = "Manage Wedding Tables";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Wedding Tables</h1>
+
+    <div class="text-end mb-3">
+        <a class="btn btn-primary" href="/WeddingTable/Create?weddingId=@ViewBag.WeddingId">Add New Table</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No tables created yet.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Table Name</th>
+                    <th>Max Seats</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var table in Model)
+                {
+                    <tr>
+                        <td>@table.TableName</td>
+                        <td>@table.MaxSeats</td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" href="/WeddingTable/Edit/@table.TableId">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="/WeddingTable/Delete/@table.TableId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

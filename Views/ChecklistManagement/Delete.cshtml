@@ -1,0 +1,22 @@
+﻿@model DreamDay.Models.ChecklistItem
+
+@{
+    ViewData["Title"] = "Delete Task";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Delete Task</h1>
+
+    <div class="alert alert-danger text-center">
+        <h4>Are you sure you want to delete this task?</h4>
+        <p><strong>@Model.Title</strong></p>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ItemId" />
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="/ChecklistManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

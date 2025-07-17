@@ -1,0 +1,83 @@
+﻿@model DreamDay.Models.ChecklistItem
+
+@{
+    ViewData["Title"] = "Add New Task";
+    var categories = ViewBag.Categories as List<string>;
+    var vendors = ViewBag.Vendors as List<DreamDay.Models.Vendor>;
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Add New Task</h1>
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="WeddingId" value="@ViewBag.WeddingId" />
+
+        <div class="mb-3">
+            <label>Title</label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Vendor Category</label>
+            <select asp-for="VendorCategory" id="vendorCategorySelect" class="form-control" onchange="fetchVendorsByCategory()">
+                <option value="">Select Category</option>
+                @foreach (var category in categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Vendor</label>
+            <select asp-for="VendorId" id="vendorSelect" class="form-control">
+                <option value="">Select Vendor</option>
+                @foreach (var vendor in vendors)
+                {
+                    <option value="@vendor.VendorId">@vendor.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Due Date</label>
+            <input asp-for="DueDate" type="date" class="form-control" />
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-dark">Add</button>
+            <a href="/ChecklistManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function fetchVendorsByCategory() {
+            var selectedCategory = document.getElementById("vendorCategorySelect").value;
+            var vendorDropdown = document.getElementById("vendorSelect");
+
+            vendorDropdown.innerHTML = "<option value=''>Loading...</option>";
+
+            fetch('/ChecklistManagement/GetVendorsByCategory?category=' + encodeURIComponent(selectedCategory))
+                .then(response => response.json())
+                .then(data => {
+                    vendorDropdown.innerHTML = "<option value=''>Select Vendor</option>";
+                    data.forEach(function (vendor) {
+                        vendorDropdown.innerHTML += `<option value="${vendor.vendorId}">${vendor.name}</option>`;
+                    });
+                })
+                .catch(error => {
+                    vendorDropdown.innerHTML = "<option value=''>Error loading vendors</option>";
+                    console.error('Fetch error:', error);
+                });
+        }
+
+        window.onload = function () {
+            var selectedCategory = document.getElementById("vendorCategorySelect").value;
+            if (selectedCategory) {
+                fetchVendorsByCategory();
+            }
+        };
+    </script>
+}

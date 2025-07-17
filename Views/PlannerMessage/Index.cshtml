@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DreamDay.Models.Message>
+
+@{
+    ViewData["Title"] = "Messages";
+    var weddingId = ViewBag.WeddingId;
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Messages</h1>
+
+    <form asp-action="SendMessage" method="post" class="mb-4">
+        <input type="hidden" name="weddingId" value="@weddingId" />
+        <div class="mb-3">
+            <textarea name="content" class="form-control" placeholder="Type your message..." required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </div>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No messages yet.</p>
+    }
+    else
+    {
+        <ul class="list-group">
+            @foreach (var msg in Model)
+            {
+                <li class="list-group-item">
+                    <strong>@msg.SentDate.ToString("g")</strong>: @msg.Content
+                </li>
+            }
+        </ul>
+    }
+</div>

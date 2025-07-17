@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DreamDay.Models.Guest>
+
+@{
+    ViewData["Title"] = "Guest List with Seating";
+    var tables = ViewBag.Tables as List<DreamDay.Models.WeddingTable>;
+}
+@if (tables != null && tables.Any())
+{
+    int totalSeats = tables.Sum(t => t.MaxSeats);
+    int assignedSeats = Model.Count(g => g.TableId != null);
+    int availableSeats = totalSeats - assignedSeats;
+    int seatsPerTable = tables.First().MaxSeats;
+
+    <div class="alert alert-info mt-3">
+        <strong>Table Setup:</strong>
+        @tables.Count table(s),
+        @seatsPerTable seat(s) per table –
+        Total Capacity: <strong>@totalSeats</strong>,
+        Assigned: <strong>@assignedSeats</strong>,
+        Available: <strong>@availableSeats</strong>
+    </div>
+}
+
+
+<div class="container my-5 guest-management-page">
+    <h1 class="text-center mb-4">Manage Guests and Seating</h1>
+
+    <!--  Table Setup Form -->
+    <div class="card p-4 mb-5 shadow-sm">
+        <h5>Create Tables</h5>
+        <form asp-action="GenerateTables" method="post" class="row g-3 align-items-center">
+            <input type="hidden" name="weddingId" value="@ViewBag.WeddingId" />
+            <div class="col-md-4">
+                <label class="form-label">Seats per Table</label>
+                <input type="number" name="seatsPerTable" class="form-control" min="1" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Number of Tables</label>
+                <input type="number" name="tableCount" class="form-control" min="1" required />
+            </div>
+            <div class="col-md-4 align-self-end">
+                <button type="submit" class="btn btn-success w-100">Generate Tables</button>
+            </div>
+        </form>
+    </div>
+
+    <!--  Guest Add Button -->
+    <div class="text-end mb-3">
+        <a class="btn btn-dark" href="/GuestManagement/Create"><i class="bi bi-plus-circle"></i>Add New Guest</a>
+    </div>
+
+    <!--  Guest Table -->
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No guests added yet.</p>
+    }
+    else
+    {
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>RSVP</th>
+                        <th>Seat Number</th>
+                        <th>Meal Preference</th>
+                        <th>Assigned Table</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var guest in Model)
+                    {
+                        <tr>
+                            <td>@guest.Name</td>
+                            <td>@guest.Email</td>
+                            <td>@guest.RSVPStatus</td>
+                            <td>@guest.SeatNumber</td>
+                            <td>@guest.MealPreference</td>
+                            <td>@guest.TableId</td>
+                            <td>
+                                <a class="btn btn-dark btn-sm" href="/GuestManagement/Edit/@guest.GuestId">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm" href="/GuestManagement/Delete/@guest.GuestId">
+                                    <i class="bi bi-trash-fill"></i>Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

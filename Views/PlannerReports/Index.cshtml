@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Planner Reports";
+    var popularVenues = ViewBag.PopularVenues as IEnumerable<dynamic>;
+    var vendorAssignments = ViewBag.VendorAssignments as IEnumerable<dynamic>;
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Planner Reports & Insights</h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h4>Top Venues</h4>
+                <ul>
+                    @foreach (var venue in ViewBag.PopularVenues)
+                    {
+                        <li>@venue.Venue (@venue.Count weddings)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow p-3">
+                <h4>Average Budget</h4>
+                <p>Estimated: @ViewBag.AverageBudget.AverageEstimated.ToString("C")</p>
+                <p>Actual: @ViewBag.AverageBudget.AverageActual.ToString("C")</p>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            <div class="card shadow p-3">
+                <h4>Top Vendors</h4>
+                <ul>
+                    @foreach (var vendor in ViewBag.VendorPerformance)
+                    {
+                        <li>@vendor.VendorName (@vendor.Assignments weddings)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

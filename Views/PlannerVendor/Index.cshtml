@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DreamDay.Models.Vendor>
+
+@{
+    ViewData["Title"] = "Vendors";
+    var weddingId = ViewBag.WeddingId;
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Available Vendors</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No vendors available yet.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price Starting From</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vendor in Model)
+                {
+                    <tr>
+                        <td>@vendor.Name</td>
+                        <td>@vendor.Category</td>
+                        <td>$@vendor.PriceStartingFrom.ToString("F2")</td>
+                        <td>
+                            <form asp-action="AssignVendor" method="post" class="d-inline">
+                                <input type="hidden" name="vendorId" value="@vendor.VendorId" />
+                                <input type="hidden" name="weddingId" value="@weddingId" />
+                                <button type="submit" class="btn btn-success btn-sm">Assign</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

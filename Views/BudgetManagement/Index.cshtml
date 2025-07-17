@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DreamDay.Models.BudgetItem>
+
+@{
+    ViewData["Title"] = "Manage Budget";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Wedding Budget Management</h1>
+
+    <div class="text-end mb-3">
+        <a class="btn btn-dark" href="/BudgetManagement/Create"><i class="bi bi-plus-circle"></i>Add New Budget Item</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No budget items added yet.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Category</th>
+                    <th>Estimated Cost</th>
+                    <th>Actual Cost</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Category</td>
+                        <td>$@item.EstimatedCost</td>
+                        <td>$@item.ActualCost</td>
+                        <td>
+                            <a class="btn btn-sm btn-dark" href="/BudgetManagement/Edit/@item.BudgetItemId">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a class="btn btn-sm btn-danger" href="/BudgetManagement/Delete/@item.BudgetItemId">
+                                <i class="bi bi-trash-fill"></i>Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

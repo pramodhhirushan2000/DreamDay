@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DreamDay.Models.ChecklistItem>
+
+@{
+    ViewData["Title"] = "Manage Checklist";
+}
+
+<div class="container my-5 checklist-page">
+    <h1 class="text-center checklist-title">Wedding Checklist</h1>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No checklist items added yet.</p>
+    }
+    else
+    {
+        <div class="d-flex justify-content-between align-items-center mb-2 table-buttons">
+            <a class="btn btn-dark" asp-controller="ChecklistManagement" asp-action="Create" asp-route-weddingId="@ViewBag.WeddingId"><i class="bi bi-plus-circle"></i>Add New Task</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark sticky-header">
+                    <tr>
+                        <th>Task</th>
+                        <th>Due Date</th>
+                        <th>Vendor</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.DueDate.ToShortDateString()</td>
+                            <td>
+                                @if (item.Vendor != null)
+                                {
+                                    @item.Vendor.Name
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </td>
+                            <td>@(item.IsCompleted ? "Completed" : "Pending")</td>
+                            <td>
+                                @if (!item.IsCompleted)
+                                {
+                                    <a class="btn btn-sm btn-success" href="/ChecklistManagement/MarkComplete/@item.ItemId">Mark Complete</a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-sm btn-secondary" disabled>Already Completed</button>
+                                }
+                                <a class="btn btn-sm btn-dark" href="/ChecklistManagement/Edit/@item.ItemId">
+                                    <i class="bi bi-pencil-square"></i>Edit
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="/ChecklistManagement/Delete/@item.ItemId">
+                                    <i class="bi bi-trash-fill"></i>Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

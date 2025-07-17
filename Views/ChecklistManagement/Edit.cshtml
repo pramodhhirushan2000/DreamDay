@@ -1,0 +1,89 @@
+﻿@model DreamDay.Models.ChecklistItem
+
+@{
+    var vendorCategories = ViewBag.VendorCategories as List<string>;
+    var initialVendors = ViewBag.InitialVendors as List<DreamDay.Models.Vendor>;
+}
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Edit Task</h1>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ItemId" />
+        <input type="hidden" asp-for="WeddingId" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Task Title</label>
+            <input asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">Vendor Category</label>
+            <select asp-for="VendorCategory" id="vendorCategorySelect" class="form-control" required onchange="fetchVendorsByCategory()">
+                <option value="">Select Category</option>
+                @foreach (var category in vendorCategories)
+                {
+                    <option value="@category" selected="@(Model.VendorCategory == category)">
+                        @category
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">Select Vendor</label>
+            <select asp-for="VendorId" id="vendorSelect" class="form-control">
+                <option value="">Select Vendor</option>
+                @if (initialVendors != null)
+                {
+                    foreach (var vendor in initialVendors)
+                    {
+                        <option value="@vendor.VendorId" selected="@(Model.VendorId == vendor.VendorId)">
+                            @vendor.Name
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DueDate" class="form-label">Due Date</label>
+            <input asp-for="DueDate" class="form-control" type="date" required />
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="IsCompleted" class="form-check-input" type="checkbox" />
+            <label class="form-check-label" asp-for="IsCompleted">Task Completed</label>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-dark">Save Changes</button>
+            <a href="/ChecklistManagement" class="btn btn-secondary">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function fetchVendorsByCategory() {
+            var selectedCategory = document.getElementById("vendorCategorySelect").value;
+            var vendorDropdown = document.getElementById("vendorSelect");
+            vendorDropdown.innerHTML = "<option value=''>Loading...</option>";
+
+            fetch('/ChecklistManagement/GetVendorsByCategory?category=' + selectedCategory)
+                .then(response => response.json())
+                .then(data => {
+                    vendorDropdown.innerHTML = "<option value=''>Select Vendor</option>";
+                    data.forEach(function (vendor) {
+                        vendorDropdown.innerHTML += `<option value="${vendor.vendorId}">${vendor.name}</option>`;
+                    });
+                });
+        }
+    </script>
+}
+

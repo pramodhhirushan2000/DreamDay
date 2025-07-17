@@ -1,0 +1,130 @@
+﻿@model DreamDay.Models.ViewModels.WeddingDetailsViewModel
+
+@{
+    ViewData["Title"] = "Wedding Details";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Wedding Details</h1>
+
+    <div class="card shadow-sm p-4 mb-4 wedding-info-card">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h4>Wedding Information</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Couple ID:</strong> @Model.Wedding.CoupleId</li>
+                    <li class="list-group-item"><strong>Wedding Date:</strong> @Model.Wedding.WeddingDate.ToString("yyyy-MM-dd")</li>
+                    <li class="list-group-item"><strong>Venue:</strong> @(Model.Wedding.Venue ?? "Not Assigned")</li>
+                </ul>
+            </div>
+
+            <button class="message-toggle-btn ms-auto" onclick="toggleMessagePanel()">
+                <i class="fas fa-envelope"></i>
+            </button>
+        </div>
+
+        <div id="messagePanel" style="display:none;" class="message-card-inner mt-3">
+            <h5 class="text-center mb-3">Messages</h5>
+            <div id="messageList" class="message-list mb-3">
+                <!-- Previous messages load here -->
+            </div>
+
+            <form id="messageForm" onsubmit="sendMessage(event)">
+                <div class="form-group mb-2">
+                    <textarea id="messageContent" class="form-control" placeholder="Type your message..." required style="resize: none;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-cream w-100">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm p-4 mb-4">
+        <h4>Assigned Vendors</h4>
+
+        @if (ViewBag.AssignedVendors != null && ((List<DreamDay.Models.VendorAssignment>)ViewBag.AssignedVendors).Any())
+        {
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Vendor Name</th>
+                        <th>Category</th>
+                        <th>Assigned Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var assignment in (List<DreamDay.Models.VendorAssignment>)ViewBag.AssignedVendors)
+                    {
+                        <tr>
+                            <td>@assignment.Vendor.Name</td>
+                            <td>@assignment.Vendor.Category</td>
+                            <td>@assignment.AssignedDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">No vendors assigned yet.</p>
+        }
+    </div>
+
+    <div class="text-center">
+        <a asp-controller="PlannerGuest" asp-action="Index" asp-route-weddingId="@Model.Wedding.WeddingId" class="btn btn-primary m-2">Manage Guests</a>
+
+        <a asp-controller="PlannerChecklist" asp-action="Index" asp-route-weddingId="@Model.Wedding.WeddingId" class="btn btn-primary m-2">Manage Checklist</a>
+
+        <a asp-controller="PlannerVendor" asp-action="Index" asp-route-weddingId="@Model.Wedding.WeddingId" class="btn btn-primary m-2">Manage Vendors</a>
+
+    </div>
+
+    <div class="mt-4 text-center">
+        <a asp-controller="PlannerDashboard" asp-action="Index" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+
+</div>
+
+    @section Scripts {
+        <script>
+            function toggleMessagePanel() {
+                const panel = document.getElementById('messagePanel');
+                if (panel.style.display === "none") {
+                    panel.style.display = "block";
+                    loadMessages();
+                } else {
+                    panel.style.display = "none";
+                }
+            }
+
+            async function loadMessages() {
+                const weddingId = @Model.Wedding.WeddingId;
+                const response = await fetch('/PlannerDashboard/GetMessages?weddingId=' + weddingId);
+                const messages = await response.json();
+                const list = document.getElementById('messageList');
+                list.innerHTML = '';
+                messages.forEach(m => {
+                    const div = document.createElement('div');
+                    div.classList.add('mb-2');
+                    div.innerHTML = `<strong>${m.senderEmail}:</strong> ${m.content} <br/><small class="text-muted">${m.sentTime}</small>`;
+                    list.appendChild(div);
+                });
+            }
+
+            async function sendMessage(event) {
+                event.preventDefault();
+                const content = document.getElementById('messageContent').value;
+                const weddingId = @Model.Wedding.WeddingId;
+
+                const response = await fetch('/PlannerDashboard/SendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ weddingId, content })
+                });
+
+                if (response.ok) {
+                    document.getElementById('messageContent').value = '';
+                    loadMessages();
+                }
+            }
+        </script>
+    }

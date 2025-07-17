@@ -1,0 +1,35 @@
+﻿@model DreamDay.Models.TimelineEvent
+
+@{
+    ViewData["Title"] = "Delete Event";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Delete Timeline Event</h1>
+
+    <div class="alert alert-danger">
+        <h4>Are you sure you want to delete this event?</h4>
+    </div>
+
+    <div class="mb-3">
+        <strong>Event Title:</strong> @Model.Title
+    </div>
+    <div class="mb-3">
+        <strong>Event Time:</strong> @Model.EventTime.ToString("f")
+    </div>
+    <div class="mb-3">
+        <strong>Description:</strong> @Model.Description
+    </div>
+    <div class="mb-3">
+        <strong>Vendor:</strong> @(Model.Vendor != null ? Model.Vendor.Name : "-")
+    </div>
+    <div class="mb-3">
+        <strong>Vendor Arrival Time:</strong> @(Model.VendorArrivalTime.HasValue ? Model.VendorArrivalTime.Value.ToString("f") : "-")
+    </div>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="EventId" />
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

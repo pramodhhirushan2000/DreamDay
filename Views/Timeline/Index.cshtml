@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DreamDay.Models.TimelineEvent>
+
+@{
+    ViewData["Title"] = "Wedding Day Timeline";
+}
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Wedding Day Timeline</h1>
+
+    <div class="text-end mb-3">
+        <a class="btn btn-dark" href="/Timeline/Create?weddingId=@ViewBag.WeddingId"><i class="bi bi-plus-circle"></i>Add New Event</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted">No timeline events added yet.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Event Time</th>
+                    <th>Event Title</th>
+                    <th>Description</th>
+                    <th>Vendor</th> <!-- New -->
+                    <th>Vendor Arrival</th> <!-- New -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@e.EventTime.ToString("hh:mm tt")</td>
+                        <td>@e.Title</td>
+                        <td>@e.Description</td>
+                        <td>
+                            @if (e.Vendor != null)
+                            {
+                                @e.Vendor.Name
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+                        <td>
+                            @if (e.VendorArrivalTime.HasValue)
+                            {
+                                @e.VendorArrivalTime.Value.ToString("hh:mm tt")
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-dark btn-sm" href="/Timeline/Edit/@e.EventId">
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@e.EventId" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash-fill"></i>Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
